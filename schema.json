@@ -156,7 +156,7 @@
     "schema": [
       {
         "system": false,
-        "id": "i9mzsjjd",
+        "id": "elni1pq3",
         "name": "name",
         "type": "text",
         "required": false,
@@ -170,7 +170,7 @@
       },
       {
         "system": false,
-        "id": "bwjsyumu",
+        "id": "zymeuvyl",
         "name": "device",
         "type": "json",
         "required": false,
@@ -182,7 +182,7 @@
       },
       {
         "system": false,
-        "id": "2ggzeqmu",
+        "id": "qqqrajfg",
         "name": "temperature",
         "type": "json",
         "required": false,
@@ -200,7 +200,7 @@
     "updateRule": null,
     "deleteRule": null,
     "options": {
-      "query": "SELECT \n    (ROW_NUMBER() OVER()) as id,\n    d.name,\n    t.device,\n    t.temperature,\n    t.created\nFROM devices d\nLEFT JOIN (\n    SELECT \n        device,\n        MAX(created) AS created,\n        temperature\n    FROM temperature\n    GROUP BY device\n) t ON d.device = t.device;"
+      "query": "SELECT \n    (ROW_NUMBER() OVER()) as id,\n    d.name,\n    t.device,\n    t.temperature,\n    t.created\nFROM devices d\nLEFT JOIN (\n    SELECT \n        device,\n        MAX(created) AS created,\n        temperature\n    FROM temperature\n    GROUP BY device\n) t ON d.device = t.device\nWHERE t.created >= datetime('now', '-2 hours');"
     }
   }
 ]
